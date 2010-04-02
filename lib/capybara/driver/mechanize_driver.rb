@@ -14,15 +14,19 @@ class Capybara::Driver::Mechanize < Capybara::Driver::Base
     @agent.get(app_host + path)
   end
 
+  def response
+    @agent.current_page
+  end
+
   def body
-    @agent.current_page.body
+    response.body
   end
 
   def current_url
-    @agent.current_page.uri.to_s
+    response.uri.to_s
   end
 
   def response_headers
-    @agent.current_page.header
+    response.header
   end
 end
