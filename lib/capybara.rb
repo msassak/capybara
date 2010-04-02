@@ -39,11 +39,12 @@ module Capybara
   autoload :Searchable, 'capybara/searchable'
   
   module Driver
-    autoload :Base,     'capybara/driver/base'
-    autoload :RackTest, 'capybara/driver/rack_test_driver'
-    autoload :Celerity, 'capybara/driver/celerity_driver'
-    autoload :Culerity, 'capybara/driver/culerity_driver'
-    autoload :Selenium, 'capybara/driver/selenium_driver'
+    autoload :Base,      'capybara/driver/base'
+    autoload :RackTest,  'capybara/driver/rack_test_driver'
+    autoload :Celerity,  'capybara/driver/celerity_driver'
+    autoload :Culerity,  'capybara/driver/culerity_driver'
+    autoload :Selenium,  'capybara/driver/selenium_driver'
+    autoload :Mechanize, 'capybara/driver/mechanize_driver'
   end
 end
 
