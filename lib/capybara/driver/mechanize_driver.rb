@@ -1,7 +1,6 @@
 require 'mechanize'
 
 class Capybara::Driver::Mechanize < Capybara::Driver::Base
-
   attr_reader :app_host
 
   def initialize(app)
@@ -11,6 +10,7 @@ class Capybara::Driver::Mechanize < Capybara::Driver::Base
   end
 
   def visit(path)
+    reset_cache
     @agent.get(app_host + path)
   end
 
@@ -18,8 +18,16 @@ class Capybara::Driver::Mechanize < Capybara::Driver::Base
     @agent.current_page
   end
 
+  def find(selector)
+    html.xpath(selector).map { |node| Capybara::Driver::RackTest::Node.new(self, node) }
+  end
+
   def body
-    response.body
+    @body ||= response.body
+  end
+
+  def html
+    @html ||= Nokogiri::HTML(body)
   end
 
   def current_url
@@ -28,5 +36,11 @@ class Capybara::Driver::Mechanize < Capybara::Driver::Base
 
   def response_headers
     response.header
+  end
+
+  private
+
+  def reset_cache
+    @body = @html = nil
   end
 end
